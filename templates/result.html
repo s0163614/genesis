@@ -3,15 +3,438 @@
 <head>
     <meta charset="UTF-8">
     <title>Результаты выбора</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+:root {
+    --dark-bg: #212121;
+    --accent-green: #A7DB2E;
+    --light-green: #c4ea6b;
+    --dark-green: #86b025;
+    --glass-bg: rgba(255, 255, 255, 0.07);
+    --accent-purple: #9B4DCA;
+}
+
+body {
+    background: linear-gradient(135deg, var(--dark-bg), #1a1a1a);
+    color: #e0e0e0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 40px 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeIn 1s ease-in;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.floating-squares {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.square {
+    position: absolute;
+    background: linear-gradient(45deg, var(--accent-green), var(--accent-purple));
+    opacity: 0.1;
+    border-radius: 10px;
+    animation: float 20s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(var(--moveX), var(--moveY)) rotate(360deg); }
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, 
+        rgba(155, 77, 202, 0.1) 0%,
+        rgba(167, 219, 46, 0.1) 30%,
+        rgba(33, 33, 33, 0) 70%);
+    animation: rotate 30s linear infinite;
+    z-index: -1;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h1, h2 {
+    color: var(--accent-green);
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2em;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    text-shadow: 0 0 20px rgba(167, 219, 46, 0.3);
+    animation: glow 3s ease-in-out infinite alternate;
+    max-width: 800px;
+}
+
+h2 {
+    font-size: 1.5em;
+    color: var(--light-green);
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 20px rgba(167, 219, 46, 0.3); }
+    to { text-shadow: 0 0 30px rgba(167, 219, 46, 0.5), 0 0 40px rgba(155, 77, 202, 0.3); }
+}
+
+.content-container {
+    background: var(--glass-bg);
+    padding: 40px;
+    border-radius: 30px;
+    backdrop-filter: blur(20px);
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(167, 219, 46, 0.2);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    margin: 15px 0;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+    border: 1px solid rgba(167, 219, 46, 0.1);
+    transition: all 0.3s ease;
+}
+
+li:hover {
+    background: rgba(167, 219, 46, 0.1);
+    transform: translateX(5px);
+}
+
+
+
+.button {
+    background: linear-gradient(135deg, var(--accent-green), var(--dark-green));
+    color: var(--dark-bg);
+    border: none;
+    padding: 20px 30px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex: 1;
+    min-width: 250px;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(167, 219, 46, 0.3);
+}
+
+.button:hover {
+    background: linear-gradient(135deg, var(--light-green), var(--accent-green));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(167, 219, 46, 0.4);
+}
+
+.text-area {
+    width: 100%;
+    max-width: 800px;
+    margin-top: 40px;
+    background: var(--glass-bg);
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid rgba(167, 219, 46, 0.2);
+    min-height: 200px;
+}
+@media (max-width: 480px) {
+    body {
+        padding: 15px 10px;
+    }
+    
+    h1 {
+        font-size: 1.3em;
+    }
+    
+    h2 {
+        font-size: 1.1em;
+    }
+    
+    .content-container {
+        padding: 15px;
+    }
+    
+    .button {
+        font-size: 0.85em;
+        padding: 12px 15px;
+    }
+}
+
+
+@font-face {
+            font-family: "Gt Eesti Pro Display";
+            src: url('gteestiprodisplay_ultrabold.woff2') format('woff2'),
+                 url('gteestiprodisplay_ultrabold.woff') format('woff'),
+                 url('gteestiprodisplay_ultrabold.otf') format('opentype');
+        }
+
+        .shrift1 {
+            font-family: "Gt Eesti Pro Display", sans-serif;
+            font-size: 36px;
+			font-weight: bold;
+        }
+		
+		@font-face2 {
+            font-family: "Gt Eesti Pro Display Medium";
+            src: url('shift1.woff2') format('woff2'),
+                 url('shift1.woff') format('woff'),
+                 url('shift1.otf') format('opentype');
+        }
+
+        .shrift2 {
+            font-family: "Gt Eesti Pro Display Medium", sans-serif;
+            font-size: 30px;
+			#font-weight: bold;
+        }
+</style>
+	
 </head>
 <body>
-    <h1>Вы выбрали поддержку ввиде: {{ selected_option }}</h1>
-    <h2>Ваш бизнес: {{ selected_radio_option }}</h2>
-    <h2>Информация о компании:</h2>
+	<div class="floating-squares"></div>
+    <h1 class="shrift2">Вы выбрали поддержку в виде: {{ selected_option }}</h1>
+    <h2 class="shrift1">Ваш бизнес: {{ selected_radio_option }}</h2>
+	<div class="content-container">
+    <h2 class="shrift1">Информация о компании:</h2>
     <ul>
     {% for key, value in company_info.items() %}
         <li><strong>{{ key }}:</strong> {{ value|safe }}</li>
     {% endfor %}
     </ul>
+	</div>
+
+<div class="button-container">
+    <div class="button-wrapper">
+           <form action="{{ url_for('download_file') }}" method="get">
+        <button type="submit" class="button">Микрозайм для действующих субъектов малого и среднего предпринимательства «Торговля» Краснодарского Края</button>
+        
+    </form>
+       
+    </div>
+    
+    <div class="button-wrapper" id="button2" style="display: none;">
+        <button class="button" onclick="toggleDescription('desc1')">Центр поддержки инвестиционного кредитования</button>
+        <div id="desc1" class="description">
+            <p>Центр поддержки предоставляет комплексное сопровождение инвестиционных проектов, помощь в получении кредитования и консультации по финансовым вопросам.</p>
+        </div>
+    </div>
+    
+
+    <div class="button-wrapper" id="button3" style="display: none;">
+        <button class="button" onclick="toggleDescription('desc2')">Получение субсидии</button>
+        <div id="desc2" class="description">
+            <p>Государственная поддержка в виде субсидий для развития бизнеса, компенсации затрат и реализации новых проектов.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleDescription(descriptionId) {
+    const descriptions = document.querySelectorAll('.description');
+    descriptions.forEach(desc => {
+        if (desc.id !== descriptionId) {
+            desc.classList.remove('fade-in');
+            desc.classList.add('fade-out');
+            setTimeout(() => {
+                desc.style.display = 'none';
+            }, 300); // Ждем завершения анимации перед скрытием
+        }
+    });
+    
+    const desc = document.getElementById(descriptionId);
+    if (desc.style.display === 'block') {
+        desc.classList.remove('fade-in');
+        desc.classList.add('fade-out');
+        setTimeout(() => {
+            desc.style.display = 'none';
+        }, 300); // Ждем завершения анимации перед скрытием
+    } else {
+        desc.style.display = 'block';
+        desc.classList.remove('fade-out');
+        desc.classList.add('fade-in');
+    }
+}
+
+// Показать вторую кнопку через 6 секунд
+setTimeout(() => {
+    document.getElementById('button2').style.display = 'block';
+}, 6000);
+
+// Показать третью кнопку через 10 секунд
+setTimeout(() => {
+    document.getElementById('button3').style.display = 'block';
+}, 10000);
+</script>
+
+<style>
+.description {
+    display: none; /* Скрываем описание по умолчанию */
+    background-color: rgba(255, 255, 255, 0.9); /* Полупрозрачный белый фон для описания */
+    color: #333; /* Темный цвет текста */
+    padding: 20px; /* Увеличенные отступы внутри блока описания */
+    border-radius: 12px; /* Закругленные углы */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Легкая тень */
+    margin-top: 10px; /* Отступ сверху для отделения от кнопки */
+    transition: all 0.3s ease; /* Плавный переход при отображении */
+}
+
+.description p {
+    margin: 0; /* Убираем отступы у параграфа */
+    line-height: 1.6; /* Увеличиваем межстрочный интервал для лучшей читабельности */
+    font-size: 1em; /* Размер шрифта */
+}
+
+@media (max-width: 960px) {
+    .description {
+        width: 100%; /* Ширина 100% на мобильных устройствах */
+        max-width: 280px; /* Максимальная ширина */
+        margin: 10px auto; /* Центрирование блока описания */
+    }
+}
+
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.button {
+    background: linear-gradient(135deg, var(--accent-green), var(--dark-green));
+    color: var(--dark-bg);
+    border: none;
+    padding: 15px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 280px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(167, 219, 46, 0.3);
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button:hover {
+    background: linear-gradient(135deg, var(--light-green), var(--accent-green));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(167, 219, 46, 0.4);
+}
+
+@media (max-width: 960px) {
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .button {
+        width: 100%;
+        max-width: 280px;
+    }
+    
+    .description {
+        position: static;
+        width: 100%;
+        max-width: 280px;
+        transform: none;
+        margin: 10px auto;
+    }
+}
+
+
+
+</style>
+
+
 </body>
 </html>
+<script>
+function createSquares() {
+    const container = document.querySelector('.floating-squares');
+    const numberOfSquares = 10;
+
+    for (let i = 0; i < numberOfSquares; i++) {
+        const square = document.createElement('div');
+        square.className = 'square';
+        
+        const size = Math.random() * 30 + 10;
+        square.style.width = `${size}px`;
+        square.style.height = `${size}px`;
+        
+        square.style.left = `${Math.random() * 100}vw`;
+        square.style.top = `${Math.random() * 100}vh`;
+        
+        const moveX = (Math.random() - 0.5) * 150;
+        const moveY = (Math.random() - 0.5) * 150;
+        square.style.setProperty('--moveX', `${moveX}px`);
+        square.style.setProperty('--moveY', `${moveY}px`);
+        
+        square.style.animationDuration = `${Math.random() * 20 + 10}s`;
+        
+        container.appendChild(square);
+    }
+}
+
+function toggleDescription(descriptionId) {
+    const descriptions = document.querySelectorAll('.description');
+    descriptions.forEach(desc => {
+        if (desc.id !== descriptionId) {
+            desc.style.display = 'none';
+        }
+    });
+    
+    const desc = document.getElementById(descriptionId);
+    if (desc.style.display === 'block') {
+        desc.style.display = 'none';
+    } else {
+        desc.style.display = 'block';
+    }
+}
+
+createSquares();
+
+document.querySelectorAll('.button').forEach(button => {
+    button.addEventListener('touchstart', function() {
+        this.style.transform = 'scale(0.98)';
+    });
+
+    button.addEventListener('touchend', function() {
+        this.style.transform = 'scale(1)';
+    });
+});
+</script>
