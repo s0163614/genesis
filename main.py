@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import requests
 from bs4 import BeautifulSoup
+from flask import send_file
+import os
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Не забудьте установить секретный ключ для работы с сессиями
@@ -98,6 +100,11 @@ def options():
 
     return render_template('options.html')
 
+@app.route('/download_file')
+def download_file():
+    filepath = 'predl.docx'  # Убедитесь, что файл доступен по этому пути
+    return send_file(filepath, as_attachment=True)
+
 @app.route('/radio_selection', methods=['GET', 'POST'])
 def radio_selection():
     if request.method == 'POST':
@@ -116,6 +123,8 @@ def show_selection():
     selected_radio_option = session.get('selected_radio_option', 'Не выбран')
     company_info = session.get('company_info', {})
     return render_template('result.html', selected_option=selected_option, selected_radio_option=selected_radio_option, company_info=company_info)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
