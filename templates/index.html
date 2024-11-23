@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Поиск компании по ИНН</title>
+</head>
+<body>
+    <h1>Поиск компании по ИНН</h1>
+    <form method="post">
+        <label for="inn">Введите ИНН:</label>
+        <input type="text" name="inn" id="inn" required>
+        <button type="submit">Найти</button>
+    </form>
+
+    {% if company_info %}
+    <h2>Результаты поиска:</h2>
+    <ul>
+        {% if company_info.error %}
+            <li>{{ company_info.error }}</li>
+        {% else %}
+            {% for key, value in company_info.items() %}
+                <li><strong>{{ key }}:</strong> {{ value }}</li>
+            {% endfor %}
+        {% endif %}
+    </ul>
+    {% endif %}
+</body>
+</html>
