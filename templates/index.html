@@ -304,5 +304,27 @@ createSquares();
 
 
 
+const button = document.querySelector('button');
+let isAnimating = false;
 
+button.addEventListener('mouseover', function() {
+    if (!isAnimating) {
+        isAnimating = true;
+        this.style.transform = 'scale(1.05)';
+    }
+});
+
+button.addEventListener('mouseout', function() {
+    isAnimating = false;
+    this.style.transform = 'scale(1)';
+});
+
+const style = document.createElement('style');
+style.textContent = `
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}`;
+document.head.appendChild(style);
 </script>
