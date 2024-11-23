@@ -51,7 +51,7 @@ body {
     0% {
         transform: translate(0, 0) rotate(0deg);
     }
-    100% {
+    30% {
         transform: translate(var(--moveX), var(--moveY)) rotate(360deg);
     }
 }
@@ -294,7 +294,7 @@ function createSquares() {
         square.style.setProperty('--moveY', `${moveY}px`);
         
         // Random animation duration
-        square.style.animationDuration = `${Math.random() * 20 + 10}s`;
+        square.style.animationDuration = `${Math.random() * 100 + 10}s`;
         
         container.appendChild(square);
     }
