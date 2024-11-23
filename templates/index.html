@@ -275,7 +275,7 @@ function createSquares() {
     const numberOfSquares = 15;
 
     for (let i = 0; i < numberOfSquares; i++) {
-        const square = document.createElement(`div`);
+        const square = document.createElement('div');
         square.className = `square`;
         
         // Random size between 20 and 60
@@ -290,8 +290,8 @@ function createSquares() {
         // Random movement distance
         const moveX = (Math.random() - 0.5) * 200;
         const moveY = (Math.random() - 0.5) * 200;
-        square.style.setProperty(`--moveX`, `${moveX}px`);
-        square.style.setProperty(`--moveY`, `${moveY}px`);
+        square.style.setProperty('--moveX', `${moveX}px`);
+        square.style.setProperty('--moveY', `${moveY}px`);
         
         // Random animation duration
         square.style.animationDuration = `${Math.random() * 20 + 10}s`;
@@ -304,27 +304,5 @@ createSquares();
 
 
 
-const button = document.querySelector(`button`);
-let isAnimating = false;
 
-button.addEventListener(`mouseover`, function() {
-    if (!isAnimating) {
-        isAnimating = true;
-        this.style.transform = `scale(1.05)`;
-    }
-});
-
-button.addEventListener(`mouseout`, function() {
-    isAnimating = false;
-    this.style.transform = `scale(1)`;
-});
-
-const style = document.createElement(`style`);
-style.textContent = `
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-10px); }
-    75% { transform: translateX(10px); }
-}`;
-document.head.appendChild(style);
 </script>
