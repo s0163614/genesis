@@ -41,15 +41,17 @@ body {
 
 .hexagon {
     position: absolute;
-    background: linear-gradient(45deg, var(--accent-green), var(--accent-purple));
-    opacity: 0.1;
-    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-    animation: float linear infinite;
+    width: 60px;
+    height: 34.64px; /* Для правильной высоты гексагона */
+   background: linear-gradient(45deg, var(--accent-green), var(--accent-purple));
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    animation: move 10s infinite alternate;
 }
 
-@keyframes float {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    100% { transform: translate(var(--moveX), var(--moveY)) rotate(360deg); }
+@keyframes move {
+    to {
+        transform: translate(var(--moveX), var(--moveY));
+    }
 }
 
 body::before {
