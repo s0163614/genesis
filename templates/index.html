@@ -39,18 +39,20 @@ body {
     z-index: -1;
 }
 
-.hexagon {
+.square {
     position: absolute;
-    width: 60px;
-    height: 34.64px; /* Для правильной высоты гексагона */
-   background: linear-gradient(45deg, var(--accent-green), var(--accent-purple));
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    animation: move 10s infinite alternate;
+    background: linear-gradient(45deg, var(--accent-green), var(--accent-purple));
+    opacity: 0.1;
+    border-radius: 10px;
+    animation: float 20s linear infinite;
 }
 
-@keyframes move {
-    to {
-        transform: translate(var(--moveX), var(--moveY));
+@keyframes float {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    100% {
+        transform: translate(var(--moveX), var(--moveY)) rotate(360deg);
     }
 }
 
@@ -185,31 +187,7 @@ ul {
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
 }
 
-@font-face {
-            font-family: "Gt Eesti Pro Display";
-            src: url('fonts/gteestiprodisplay_ultrabold.woff2') format('woff2'),
-                 url('fonts/gteestiprodisplay_ultrabold.woff') format('woff'),
-                 url('fonts/gteestiprodisplay_ultrabold.otf') format('opentype');
-        }
 
-        .shrift1 {
-            font-family: "Gt Eesti Pro Display", sans-serif;
-            font-size: 36px;
-			font-weight: bold;
-        }
-		
-		@font-face2 {
-            font-family: "Gt Eesti Pro Display Medium";
-            src: url('fonts/shift1.woff2') format('woff2'),
-                 url('fonts/shift1.woff') format('woff'),
-                 url('fonts/shift1.otf') format('opentype');
-        }
-
-        .shrift2 {
-            font-family: "Gt Eesti Pro Display Medium", sans-serif;
-            font-size: 36px;
-			#font-weight: bold;
-        }
 
 li {
     padding: 20px;
@@ -268,37 +246,37 @@ ul li:nth-child(2) { animation-delay: 0.4s; }
 
 <script>
 // Create floating squares
-function createHexagons() {
-    const container = document.querySelector('.floating-squares');
-    const numberOfHexagons = 15;
+function createSquares() {
+            const container = document.querySelector('.floating-squares');
+            const numberOfSquares = 15;
 
-    for (let i = 0; i < numberOfHexagons; i++) {
-        const hexagon = document.createElement('div');
-        hexagon.className = 'hexagon';
-        
-        // Random size between 20 and 60
-        const size = Math.random() * 40 + 20;
-        hexagon.style.width = `${size}px`;
-        hexagon.style.height = `${size}px`;
-        
-        // Random starting position
-        hexagon.style.left = `${Math.random() * 100}vw`;
-        hexagon.style.top = `${Math.random() * 100}vh`;
-        
-        // Random movement distance
-        const moveX = (Math.random() - 0.5) * 200;
-        const moveY = (Math.random() - 0.5) * 200;
-        hexagon.style.setProperty('--moveX', `${moveX}px`);
-        hexagon.style.setProperty('--moveY', `${moveY}px`);
-        
-        // Random animation duration
-        hexagon.style.animationDuration = `${Math.random() * 20 + 10}s`;
-        
-        container.appendChild(hexagon);
-    }
-}
+            for (let i = 0; i < numberOfSquares; i++) {
+                const square = document.createElement('div');
+                square.className = 'square';
+                
+                // Random size between 20 and 60
+                const size = Math.random() * 40 + 20;
+                square.style.width = `${size}px`;
+                square.style.height = `${size}px`;
+                
+                // Random starting position
+                square.style.left = `${Math.random() * 100}vw`;
+                square.style.top = `${Math.random() * 100}vh`;
+                
+                // Random movement distance
+                const moveX = (Math.random() - 0.5) * 200;
+                const moveY = (Math.random() - 0.5) * 200;
+                square.style.setProperty('--moveX', `${moveX}px`);
+                square.style.setProperty('--moveY', `${moveY}px`);
+                
+                // Random animation duration
+                square.style.animationDuration = `${Math.random() * 20 + 10}s`;
+                
+                container.appendChild(square);
+            }
+        }
 
-createHexagons();
+        createSquares();
 
 
 
