@@ -271,31 +271,7 @@ ul li:nth-child(2) { animation-delay: 0.4s; }
 
 <script>
 // Create floating squares
-function createParticles() {
-  const container = document.getElementById('particles');
-  const particleCount = 30;
 
-  for (let i = 0; i < particleCount; i++) {
-    const particle = document.createElement('div');
-    particle.className = 'particle';
-    
-    // Random size between 5 and 20px
-    const size = Math.random() * 15 + 5;
-    particle.style.width = `${size}px`;
-    particle.style.height = `${size}px`;
-    
-    // Random position
-    particle.style.left = `${Math.random() * 100}%`;
-    
-    // Random animation delay
-    particle.style.animationDelay = `${Math.random() * 15}s`;
-    
-    container.appendChild(particle);
-  }
-}
-
-// Create initial particles
-createParticles();
 
 
 
