@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Поиск компании по ИНН</title>
-	<meta name="viewport" content="width=device-width, initial-scale=0.9">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 :root {
     --dark-bg: #212121;
@@ -16,7 +16,7 @@
 
 body {
     background: linear-gradient(135deg, var(--dark-bg), #1a1a1a);
-    #color: #e0e0e0;
+    color: #e0e0e0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
     margin: 0;
     padding: 40px 20px;
@@ -63,7 +63,10 @@ body::before {
     left: -50%;
     width: 200%;
     height: 200%;
-    
+    background: radial-gradient(circle, 
+        rgba(155, 77, 202, 0.1) 0%,
+        rgba(167, 219, 46, 0.1) 30%,
+        rgba(33, 33, 33, 0) 70%);
     animation: rotate 30s linear infinite;
     z-index: -1;
 }
@@ -99,7 +102,7 @@ form {
     padding: 40px;
     border-radius: 30px;
     backdrop-filter: blur(20px);
-    width: 85%;
+    width: 100%;
     max-width: 500px;
     margin-bottom: 30px;
     border: 1px solid rgba(167, 219, 46, 0.2);
@@ -201,16 +204,16 @@ ul {
         }
 		
 		@font-face2 {
-            font-family: "Gt Eesti Pro Display Medium";
-            src: url('fonts/shift1.woff2') format('woff2'),
-                 url('fonts/shift1.woff') format('woff'),
-                 url('fonts/shift1.otf') format('opentype');
+            font-family: "Gt Eesti Pro Display";
+            src: url('fonts/gteestiprodisplay_ultrabold.woff2') format('woff2'),
+                 url('fonts/gteestiprodisplay_ultrabold.woff') format('woff'),
+                 url('fonts/gteestiprodisplay_ultrabold.otf') format('opentype');
         }
 
-        .shrift2 {
-            font-family: "Gt Eesti Pro Display Medium", sans-serif;
+        .shrift1 {
+            font-family: "Gt Eesti Pro Display", sans-serif;
             font-size: 36px;
-			#font-weight: bold;
+			font-weight: bold;
         }
 
 li {
@@ -245,11 +248,11 @@ ul li:nth-child(2) { animation-delay: 0.4s; }
 </head>
 <body>
 <div class="floating-squares"></div>
-    <h1 class="shrift2">Поиск по ИНН</h1>
+    <h1 class="shrift1">Поиск по ИНН</h1>
     <form method="post">
-        <label class="shrift1" for="inn">Введите ИНН</label>
-        <input type="text" name="inn" id="inn" required class="shrift1" placeholder="Например: 7736207543">
-        <button  type="submit">Найти компанию</button>
+        <label class="shrift2" for="inn">Введите ИНН</label>
+        <input type="text" name="inn" id="inn" required placeholder="Например: 7736207543">
+        <button type="submit">Найти компанию</button>
     </form>
 <div class="results-container">
     {% if company_info %}
@@ -270,7 +273,37 @@ ul li:nth-child(2) { animation-delay: 0.4s; }
 
 <script>
 // Create floating squares
+function createSquares() {
+    const container = document.querySelector('.floating-squares');
+    const numberOfSquares = 15;
 
+    for (let i = 0; i < numberOfSquares; i++) {
+        const square = document.createElement('div');
+        square.className = 'square';
+        
+        // Random size between 20 and 60
+        const size = Math.random() * 40 + 20;
+        square.style.width = `${size}px`;
+        square.style.height = `${size}px`;
+        
+        // Random starting position
+        square.style.left = `${Math.random() * 100}vw`;
+        square.style.top = `${Math.random() * 100}vh`;
+        
+        // Random movement distance
+        const moveX = (Math.random() - 0.5) * 200;
+        const moveY = (Math.random() - 0.5) * 200;
+        square.style.setProperty('--moveX', `${moveX}px`);
+        square.style.setProperty('--moveY', `${moveY}px`);
+        
+        // Random animation duration
+        square.style.animationDuration = `${Math.random() * 20 + 10}s`;
+        
+        container.appendChild(square);
+    }
+}
+
+createSquares();
 
 
 
