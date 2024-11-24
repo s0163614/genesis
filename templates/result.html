@@ -386,24 +386,6 @@ setTimeout(() => {
 <script>
 
 
-function toggleDescription(descriptionId) {
-    const descriptions = document.querySelectorAll('.description');
-    descriptions.forEach(desc => {
-        if (desc.id !== descriptionId) {
-            desc.style.display = 'none';
-        }
-    });
-    
-    const desc = document.getElementById(descriptionId);
-    if (desc.style.display === 'block') {
-        desc.style.display = 'none';
-    } else {
-        desc.style.display = 'block';
-    }
-}
-
-createSquares();
-
 document.querySelectorAll('.button').forEach(button => {
     button.addEventListener('touchstart', function() {
         this.style.transform = 'scale(0.98)';
