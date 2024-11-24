@@ -2,9 +2,8 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Подтверждение данных</title>
-	
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Поиск компании по ИНН</title>
+	<meta name="viewport" content="width=device-width, initial-scale=0.9">
 <style>
 :root {
     --dark-bg: #212121;
@@ -17,7 +16,7 @@
 
 body {
     background: linear-gradient(135deg, var(--dark-bg), #1a1a1a);
-    color: #e0e0e0;
+    #color: #e0e0e0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
     margin: 0;
     padding: 40px 20px;
@@ -64,10 +63,7 @@ body::before {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, 
-        rgba(155, 77, 202, 0.1) 0%,
-        rgba(167, 219, 46, 0.1) 30%,
-        rgba(33, 33, 33, 0) 70%);
+    
     animation: rotate 30s linear infinite;
     z-index: -1;
 }
@@ -103,7 +99,7 @@ form {
     padding: 40px;
     border-radius: 30px;
     backdrop-filter: blur(20px);
-    width: 100%;
+    width: 85%;
     max-width: 500px;
     margin-bottom: 30px;
     border: 1px solid rgba(167, 219, 46, 0.2);
@@ -178,7 +174,6 @@ h2 {
     font-weight: 600;
     font-size: 2em;
     text-shadow: 0 0 15px rgba(167, 219, 46, 0.2);
-	text-align: center;
 }
 
 ul {
@@ -191,6 +186,32 @@ ul {
     border: 1px solid rgba(167, 219, 46, 0.2);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
 }
+
+@font-face {
+            font-family: "Gt Eesti Pro Display";
+            src: url('fonts/gteestiprodisplay_ultrabold.woff2') format('woff2'),
+                 url('fonts/gteestiprodisplay_ultrabold.woff') format('woff'),
+                 url('fonts/gteestiprodisplay_ultrabold.otf') format('opentype');
+        }
+
+        .shrift1 {
+            font-family: "Gt Eesti Pro Display", sans-serif;
+            font-size: 36px;
+			font-weight: bold;
+        }
+		
+		@font-face2 {
+            font-family: "Gt Eesti Pro Display Medium";
+            src: url('fonts/shift1.woff2') format('woff2'),
+                 url('fonts/shift1.woff') format('woff'),
+                 url('fonts/shift1.otf') format('opentype');
+        }
+
+        .shrift2 {
+            font-family: "Gt Eesti Pro Display Medium", sans-serif;
+            font-size: 36px;
+			#font-weight: bold;
+        }
 
 li {
     padding: 20px;
@@ -220,58 +241,35 @@ ul li {
 
 ul li:nth-child(1) { animation-delay: 0.2s; }
 ul li:nth-child(2) { animation-delay: 0.4s; }
-
-@font-face {
-            font-family: "Gt Eesti Pro Display";
-            src: url('gteestiprodisplay_ultrabold.woff2') format('woff2'),
-                 url('gteestiprodisplay_ultrabold.woff') format('woff'),
-                 url('gteestiprodisplay_ultrabold.otf') format('opentype');
-        }
-
-        .shrift1 {
-            font-family: "Gt Eesti Pro Display", sans-serif;
-            font-size: 36px;
-			font-weight: bold;
-        }
-		
-		@font-face2 {
-            font-family: "Gt Eesti Pro Display Medium";
-            src: url('shift1.woff2') format('woff2'),
-                 url('shift1.woff') format('woff'),
-                 url('shift1.otf') format('opentype');
-        }
-
-        .shrift2 {
-            font-family: "Gt Eesti Pro Display Medium", sans-serif;
-            font-size: 30px;
-			#font-weight: bold;
-        }
 </style>
-	
 </head>
 <body>
 <div class="floating-squares"></div>
-<div class="results-container">
-    <h1 class="shrift2">Подтверждение данных</h1>
-    <h2 class="shrift1">Результаты поиска:</h2>
-    <ul>
-        {% for key, value in company_info.items() %}
-            <li><strong >{{ key }}:</strong> {{ value|safe }}</li>
-        {% endfor %}
-    </ul>
-	
-	</div>
-
-    <h3 class="shrift2">Верны ли все данные?</h3>
+    <h1 class="shrift2">Поиск по ИНН</h1>
     <form method="post">
-        <button name="confirm">Да</button>
-		<br><br>
-        <button name="decline">Нет, я хочу изменить</button>
+        <label class="shrift1" for="inn">Введите ИНН</label>
+        <input type="text" name="inn" id="inn" required class="shrift1" placeholder="Например: 7736207543">
+        <button  type="submit">Найти компанию</button>
     </form>
+<div class="results-container">
+    {% if company_info %}
+    <h2>Результаты поиска:</h2>
+    <ul>
+        {% if company_info.error %}
+            <li>{{ company_info.error }}</li>
+        {% else %}
+            {% for key, value in company_info.items() %}
+                <li><strong>{{ key }}:</strong> {{ value }}</li>
+            {% endfor %}
+        {% endif %}
+    </ul>
+    {% endif %}
+	</div>
 </body>
 </html>
 
 <script>
+// Create floating squares
 
 
 
