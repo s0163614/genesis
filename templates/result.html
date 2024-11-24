@@ -384,31 +384,7 @@ setTimeout(() => {
 </body>
 </html>
 <script>
-function createSquares() {
-    const container = document.querySelector('.floating-squares');
-    const numberOfSquares = 10;
 
-    for (let i = 0; i < numberOfSquares; i++) {
-        const square = document.createElement('div');
-        square.className = 'square';
-        
-        const size = Math.random() * 30 + 10;
-        square.style.width = `${size}px`;
-        square.style.height = `${size}px`;
-        
-        square.style.left = `${Math.random() * 100}vw`;
-        square.style.top = `${Math.random() * 100}vh`;
-        
-        const moveX = (Math.random() - 0.5) * 150;
-        const moveY = (Math.random() - 0.5) * 150;
-        square.style.setProperty('--moveX', `${moveX}px`);
-        square.style.setProperty('--moveY', `${moveY}px`);
-        
-        square.style.animationDuration = `${Math.random() * 20 + 10}s`;
-        
-        container.appendChild(square);
-    }
-}
 
 function toggleDescription(descriptionId) {
     const descriptions = document.querySelectorAll('.description');
